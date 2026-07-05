@@ -2,16 +2,15 @@
 
 App para administrar los especialistas (psicólogos/psiquiatras) del centro médico **Karma**: listar, buscar por nombre o apellido, crear, editar y eliminar. El proyecto tiene dos partes — una API REST backend y una app Android nativa — que comparten el mismo modelo de datos (`Especialista`).
 
-> Estado actual del repositorio: el **backend** (`especialistaapi_backend/`) ya está subido y es invocable. La **app Android** (Kotlin + Jetpack Compose) está documentada más abajo y se subirá a este mismo repositorio en un próximo paso.
+> Estado actual del repositorio: tanto el **backend** (`especialistaapi_backend/`) como la **app Android** (`AppAndroid/`, Kotlin + Jetpack Compose) ya están subidos y son funcionales.
 
 ## Estructura del repositorio
 
 ```
 APP_KT_Karma_Gestion_Especialistas/
-└── especialistaapi_backend/   -> API REST (Spring Boot + MySQL)
+├── especialistaapi_backend/  -> API REST (Spring Boot + MySQL)
+└── AppAndroid/                -> App Android (Kotlin + Jetpack Compose)
 ```
-
-La carpeta de la app Android (ej. `app-android/`) se agregará cuando se suba el frontend.
 
 ## Modelo de datos
 
@@ -59,7 +58,7 @@ cd especialistaapi_backend
 ./mvnw spring-boot:run
 ```
 
-## App Android (frontend) — próximamente
+## App Android (frontend) — `AppAndroid`
 
 App 100% Jetpack Compose que consume esta API vía Retrofit, sin autenticación (el backend tampoco la implementa).
 
@@ -79,7 +78,12 @@ App 100% Jetpack Compose que consume esta API vía Retrofit, sin autenticación 
 
 Un único `EspecialistaViewModel` se crea en `NavGraph` y se comparte entre las 7 pantallas, de modo que crear/editar/eliminar en una pantalla se refleja automáticamente en las demás.
 
+### Cómo correrla
+
+1. Levantar antes el backend (`especialistaapi_backend`) en `localhost:8080`.
+2. Abrir la carpeta `AppAndroid/` en Android Studio y ejecutar sobre un emulador.
+   - `RetrofitClient` apunta a `http://10.0.2.2:8080/`, la IP con la que el emulador ve al `localhost` de la PC. Si se corre en un dispositivo físico, hay que cambiar `BASE_URL` por la IP de la PC en la red local.
+
 ## Roadmap
 
-- [ ] Subir el módulo de la app Android a este repositorio.
 - [ ] Pruebas unitarias (backend y app Android).
